@@ -1,8 +1,15 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ffi (1.9.23)
     json (2.1.0)
     minitest (5.11.3)
+    rbnacl (5.0.0)
+      ffi
+    rbnacl-libsodium (1.0.16)
+      rbnacl (>= 3.0.1)
+    sodium (0.7.1)
+      ffi (~> 1)
 
 PLATFORMS
   ruby
@@ -10,6 +17,9 @@ PLATFORMS
 DEPENDENCIES
   json
   minitest
+  rbnacl
+  rbnacl-libsodium
+  sodium
 
 BUNDLED WITH
    1.16.1

@@ -36,6 +36,18 @@ describe 'Test card info encryption' do
     end
   end
 
+  describe 'Using ModernSymmetricCipher' do
+    it 'should encrypt card information' do
+      enc = ModernSymmetricCipher.encrypt(@CC, @key)
+      enc.wont_equal @cc.to_s
+      enc.wont_be_nil
+    end
+
+    it 'should decrypt text' do
+      enc = ModernSymmetricCipher.decrypt(@CC, @key)
+      enc.must_equal @cc.to_s
+    end
+  end
   # TODO: Add tests for double transposition and modern symmetric key ciphers
   #       Can you DRY out the tests using metaprogramming? (see lecture slide)
 end

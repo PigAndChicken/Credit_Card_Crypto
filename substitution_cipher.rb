@@ -6,6 +6,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
+      document.to_s.chars.inject('') do |result, char|
+        ascii = char.ord + key
+        result << ascii.chr
+      end
       # TODO: encrypt string using caesar cipher
     end
 
@@ -15,6 +19,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
+      document.to_s.chars.inject('') do |result, char|
+        ascii = char.ord - key
+        result << ascii.chr
+      end
       # TODO: decrypt string using caesar cipher
     end
   end
@@ -26,6 +34,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.encrypt(document, key)
+      document.to_s.chars.each_slice(key).to_a.inject([]) do |result, array|
+        result = result + array.shuffle(random: Random.new(key))
+        result
+      end.join('')
       # TODO: encrypt string using a permutation cipher
     end
 
@@ -35,6 +47,10 @@ module SubstitutionCipher
     #   key: Fixnum (integer)
     # Returns: String
     def self.decrypt(document, key)
+      document.to_s.chars.each_slice(key).to_a.inject([]) do |result, array|
+        result = result + array.shuffle(random: Random.new(key))
+        result
+      end.join('')
       # TODO: decrypt string using a permutation cipher
     end
   end

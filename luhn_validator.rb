@@ -14,8 +14,8 @@ module LuhnValidator
       temp = (temp >= 10 ) ? ((temp/10)+(temp%10)) : temp
       result = result + temp
     end
-
-    ( 10 - checksum%10 ) == check_digit
+    mod10 = checksum % 10
+    (mod10 == 0) ? mod10 == check_digit : ( 10 - mod10 ) == check_digit
     # TODO: use the integers in nums_a to validate its last check digit
   end
 end
