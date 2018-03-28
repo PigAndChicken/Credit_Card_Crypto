@@ -1,4 +1,5 @@
 require_relative '../credit_card'
+require_relative '../sk_cipher.rb'
 require_relative '../substitution_cipher'
 require_relative '../double_trans_cipher.rb'
 require 'minitest/autorun'
@@ -38,15 +39,21 @@ describe 'Test card info encryption' do
   end
 
   describe 'Using ModernSymmetricCipher' do
+    before do
+      @new_key = ModernSymmetricCipher.generate_new_key
+    end
+
     it 'should encrypt card information' do
-      enc = ModernSymmetricCipher.encrypt(@CC, @key)
+      enc = ModernSymmetricCipher.encrypt(@cc, @new_key)
       enc.wont_equal @cc.to_s
       enc.wont_be_nil
+      enc.must_be_kind_of String
     end
 
     it 'should decrypt text' do
-      enc = ModernSymmetricCipher.decrypt(@CC, @key)
-      enc.must_equal @cc.to_s
+      enc = ModernSymmetricCipher.encrypt(@cc, @new_key)
+      dec = ModernSymmetricCipher.decrypt(enc, @new_key)
+      dec.must_equal @cc.to_s
     end
   end
   # TODO: Add tests for double transposition and modern symmetric key ciphers
